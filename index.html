@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Unlimited Wordle</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+</head>
+
+<body onload="start()">
+    <header>
+        <div class="paletteSwitch" style="visibility:hidden"></div>
+        <h1>Wordle</h1>
+        <div class="paletteSwitch" onclick="switchPalette()">Light Mode</button>
+    </header>
+
+    <div class="container">
+        <div class="cellrow">
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+        </div>
+
+        <div class="cellrow">
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+        </div>
+
+        <div class="cellrow">
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+        </div>
+
+        <div class="cellrow">
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+        </div>
+
+        <div class="cellrow">
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+        </div>
+
+        <div class="cellrow">
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+        </div>
+    </div>
+    <div class="keyboard">
+        <div class="keyrow">
+            <div>Q</div>
+            <div>W</div>
+            <div>E</div>
+            <div>R</div>
+            <div>T</div>
+            <div>Y</div>
+            <div>U</div>
+            <div>I</div>
+            <div>O</div>
+            <div>P</div>
+        </div>
+
+        <div class="keyrow">
+            <div>A</div>
+            <div>S</div>
+            <div>D</div>
+            <div>F</div>
+            <div>G</div>
+            <div>H</div>
+            <div>J</div>
+            <div>K</div>
+            <div>L</div>
+        </div>
+
+        <div class="keyrow">
+            <div class="action" onclick="enter()">ENTER</div>
+            <div>Z</div>
+            <div>X</div>
+            <div>C</div>
+            <div>V</div>
+            <div>B</div>
+            <div>N</div>
+            <div>M</div>
+            <div class="action" onclick="del()">DEL</div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

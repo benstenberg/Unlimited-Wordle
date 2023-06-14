@@ -1,0 +1,136 @@
+:root {
+    --dark-background: #141414;
+    --dark-text: white;
+    --dark-keys: #878683;
+    --dark-lines:#444444;
+    --light-background: #edeff1;
+    --light-text: #141414;
+    --light-keys: #d4d4d4;
+    --light-lines: #d4d4d4;
+}
+
+
+* {
+    margin: 0;
+}
+
+body {
+    background-color: var(--dark-background);
+}
+
+header {
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--dark-text);
+    border-bottom: 2px solid var(--dark-lines);
+}
+
+.container {
+    margin-top: 40px;
+    margin-right: auto;
+    margin-left: auto;
+    width: 20%;
+    height: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 5px;
+}
+
+.cell {
+    color: var(--dark-text);
+    border: 2px solid var(--dark-lines);
+    aspect-ratio: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: xx-large;
+}
+
+.cellrow {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 5px;
+}
+
+.keyboard {
+    width: 50%;
+    height: auto;
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.keyrow {
+    margin-bottom: 7px;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    display: flex;
+    column-gap: 7px;
+}
+
+.keyrow div {
+    color: var(--dark-text);
+    background-color: var(--dark-keys);
+    font-size: x-large;
+    padding: 10px;
+    width: 45px;
+    height: 50px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.keyrow .action {
+    width: 65px;
+    font-size: smaller;
+}
+
+.animation {
+    animation: nod 0.3s;
+}
+
+
+/* Invalid word animation */
+@keyframes nod {
+    0% {
+        transform: translate(10px);
+    }
+
+    25% {
+        transform: translate(-20px);
+    }
+
+    50% {
+        transform: translate(20px);
+    }
+
+    75% {
+        transform: translate(-20px);
+    }
+
+    100% {
+        transform: translate(10px);
+    }
+}
+
+.paletteSwitch {
+    text-align: center;
+    width: 100px;
+    padding: 7px;
+    border-radius: 5px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--dark-text);
+    color: var(--dark-text);
+    margin-right:2px;
+}
+
+.paletteSwitch:hover {
+    filter: contrast(70%);
+    cursor: pointer;
+}
