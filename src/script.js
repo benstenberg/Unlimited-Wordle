@@ -13,6 +13,7 @@ let colors = 'dark';
 /* Pick the new word, init state */
 function start() {
     initBttnListeners();
+    keydownListeners();
     grid = $('.container .cell');
     let fullWord = selectRandomWord();
     console.log("word is " + fullWord);
@@ -30,6 +31,28 @@ function initBttnListeners() {
             })
         }
     }
+}
+
+/* Listen for key press events on physical keyboard */
+function keydownListeners() {
+    document.addEventListener("keydown", (event) => {
+        var key = event.key.toUpperCase();
+        var code = key.charCodeAt(0);
+
+        // Enter or Delete?
+        if (key == 'ENTER') {
+            enter();
+        }
+        else if (key == 'DELETE' || key == 'BACKSPACE') {
+            del();
+        }
+        else {
+            // Ascii for capital letters, ignore non-character keys (alt,ctrl,etc.)
+            if (code >= 65 && code <= 90 && key.length == 1) {
+                keyClick(key);
+            }
+        }
+    });
 }
 
 /* Any letter keypress */
@@ -87,10 +110,15 @@ function enter() {
         }
         else {
             // set colors and move on
-            setColors(status, currentGuess);
-            if (currentGuess == 5 || JSON.stringify(status) == JSON.stringify(['G', 'G', 'G', 'G', 'G'])) {
+            setColors(status, currentGuess, guess);
+            if (currentGuess == 5) {
                 gameDone = true;
-                alert("GAME OVER");
+                popupWindow('loss');
+                return;
+            }
+            else if (JSON.stringify(status) == JSON.stringify(['G', 'G', 'G', 'G', 'G'])) {
+                gameDone = true;
+                popupWindow('win');
                 return;
             }
             currentIndex = 0;
@@ -99,9 +127,28 @@ function enter() {
     }
 }
 
-/* Set the grid colors for this row after a successful guess */
-function setColors(status, currentGuess) {
+/* Trigger the popup window */
+function popupWindow(outcome) {
+    if (outcome == 'win') {
+        $('.outcome').text("You won!");
+        if (currentGuess == 0) {
+            $('.tries').text("It took you " + (currentGuess + 1) + " guess to solve the puzzle.");
+        }
+        else {
+            $('.tries').text("It took you " + (currentGuess + 1) + " guesses to solve the puzzle.");
+        }
+    }
+    else if (outcome == 'loss') {
+        $('.outcome').text("You lost!");
+        $('.tries').text("The word was " + word.join(""));
+    }
+    $('.blur').css('visibility', 'visible');
+}
+
+/* Set the grid colors for this row after a successful guess and key colors */
+function setColors(status, currentGuess, word) {
     var statusCount = 0;
+    var letter = 0;
     var color;
     for (var i = currentGuess * 5; i < 5 * currentGuess + 5; i++) {
         if (status[statusCount] == 'Y') {
@@ -111,11 +158,20 @@ function setColors(status, currentGuess) {
             color = '#33b864';
         }
         else {
-            color = '#777a7b';
+            color = '#5a5a5a';
         }
+        setKeyColor(word[letter], color);
         $(grid[i]).css("background-color", color)
         statusCount++;
+        letter++;
     }
+}
+
+/* Change color of keyboard keys */
+function setKeyColor(key, color) {
+    $('.keyrow div').filter(function() {
+        return $(this).text() === key.toUpperCase();
+    }).css('background-color', color);
 }
 
 /* Delete keypress */
@@ -140,6 +196,8 @@ function switchPalette() {
         $(".paletteSwitch").css("color", "var(--light-text)");
         $(".paletteSwitch").css("border-color", "var(--light-text)");
         $(".paletteSwitch").text("Dark Mode")
+        $(".popup").css("background-color", "var(--light-popup)");
+        $(".popup").css("color", "var(--dark-text)");
         colors = 'light';
     }
     else {
@@ -153,6 +211,8 @@ function switchPalette() {
         $(".paletteSwitch").css("color", "var(--dark-text)");
         $(".paletteSwitch").css("border-color", "var(--dark-text)");
         $(".paletteSwitch").text("Light Mode")
+        $(".popup").css("background-color", "var(--dark-popup)");
+        $(".popup").css("color", "var(--light-text)");
         colors = 'dark';
     }
 }
